@@ -1,0 +1,124 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        // //brute force 
+        // vector<pair<int,int>>index;
+        // int n = matrix.size();
+        // int m = matrix[0].size();
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<m;j++){
+        //         if(matrix[i][j] ==0)
+        //         index.push_back({i,j});
+        //     }
+        // }
+        // cout<<index.size()<<endl;
+        // for(int i=0;i<index.size();i++){
+            
+        //     int r = index[i].first;
+        //     int c = index[i].second;
+
+        //     for(int j=0;j<m;j++){
+        //         matrix[r][j] = 0;
+        //     }
+        //     for(int j=0;j<n;j++){
+        //         matrix[j][c] = 0;
+        //     }
+        // }
+
+
+
+    //brute force 
+    // int n = matrix.size();
+    // int m= matrix[0].size();
+    // vector<vector<int>>visited =matrix;
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<m;j++){
+    //         if(matrix[i][j]==0){
+    //             for(int k=0;k<m;k++){
+    //                 visited[i][k]=0;
+    //             }
+    //         }
+    //     }
+    // }
+    //  for(int i=0;i<n;i++){
+    //     for(int j=0;j<m;j++){
+    //         if(matrix[i][j]==0){
+    //             for(int k=0;k<n;k++){
+    //                 visited[k][j]=0;
+    //             }
+    //         }
+    //     }
+    //  }
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<m;j++){
+    //         matrix[i][j]=visited[i][j];
+    //     }
+    //   }
+
+    //BRUTE FORCE INPLACE
+
+    // int n = matrix.size();
+    // int m= matrix[0].size();
+   
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<m;j++){
+    //         if(matrix[i][j]==0){
+    //             for(int k=0;k<m;k++){
+    //                 if(k!=j && matrix[i][k]==0){
+    //                     matrix[i][k]=0;
+    //                 }
+    //                 else
+    //                 matrix[i][k]=-99999;
+    //             }
+    //             for(int k=0;k<n;k++){
+    //                  if(k!=i && matrix[k][j]==0){
+    //                     matrix[k][j]=0;
+    //                 }
+    //                 else
+    //                 matrix[k][j]=-99999;
+    //             }
+    //         }
+    //     }
+    // }
+   
+    //   for(int i=0;i<n;i++){
+    //     for(int j=0;j<m;j++){
+    //         if(matrix[i][j]==-99999)
+    //         matrix[i][j]=0;
+    //     }
+    //   }
+
+    //  BETTER SOLUTION
+    //T.C O(nm)
+    //S.C O(m+n)
+    int n = matrix.size();
+    int m = matrix[0].size();
+    
+    //mark the row and column having 0 as a element;
+    int row[n] ;
+    memset(row,0,sizeof(row));
+    int col[m] ;
+    memset(col,0,sizeof(col));
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(matrix[i][j]==0){
+                row[i] = 1;
+                col[j] = 1;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(row[i] || col[j])
+            matrix[i][j] = 0;
+        }
+    }
+
+
+    //OPTIMAL SOLUTION
+    // T.C = O(mn)
+    // S.C = O(1)
+    
+    }
+};
