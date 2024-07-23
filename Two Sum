@@ -1,0 +1,42 @@
+class Solution {
+    public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+
+     //Method 1
+    int n = nums.size();
+    vector<int>ans;
+
+    unordered_map<int,int>mp;
+    for(auto it:nums){
+        mp[it]++;
+    }
+    for(int i=0;i<n;i++){
+        int req = target-nums[i];
+        if(req == nums[i] && mp[req]%2!=0)
+        continue;
+        if(mp[req]){
+            ans.push_back(i); 
+        }
+    }
+    return ans;
+    }
+        //METHOD 2
+    //     unordered_map<int,int>mp;
+    //     vector<int>v;
+    //     for(int i=0;i<nums.size();i++){
+    //         int temp = target-nums[i];
+             
+    //         if(mp.count(temp)){
+    //             v.push_back(mp[temp]);
+    //             v.push_back(i);
+    //             return v;
+    //         }
+    //         if(!mp[nums[i]]){
+    //             mp[nums[i]]=i;
+    //         }
+    //     }
+    //     return v;
+    // }
+
+   
+};
