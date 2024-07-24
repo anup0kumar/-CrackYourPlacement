@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+
+
+        //BRUTE FORCE
+    // int n= nums.size();
+    // unordered_map<int,int>mp;
+    // vector<int>v;
+    // for(int i=0;i<n;i++){
+    //     // if(mp[nums[i]]!=2)
+    //     mp[nums[i]]++;    
+    // }
+    // for(int i=0;i<n;i++){
+    //     if(mp[nums[i]]%2==0)
+    //     v.push_back(nums[i]);
+    //     mp[nums[i]]--;
+    //     }
+    //     return v;
+    // }
+
+    //OPTIMIZED SOL.
+    int n = nums.size();
+    vector<int>res;
+    for(int i=0;i<n;i++){
+        int index = abs(nums[i])-1;
+        if(nums[index]<0)
+        res.push_back(index+1);
+        else
+        nums[index] = -nums[index];
+    }
+    return res;
+    }
+};
