@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        //brute force
+        //T.C = O(n^2)
+        //S.C = O(1)
+        // int n = nums.size();
+        // int ans = 0;
+        // for(int i=0;i<n;i++){
+        //     int sum = 0;
+        //     for(int j=i;j<n;j++){
+        //         sum +=nums[j];
+        //         if(sum%k==0)
+        //         ans++;
+        //     }
+        // }
+        // return ans;
+        
+        //Optimal Solution
+        int n = nums.size();
+        //here the hashmap consists of remainder and its count not prefixsum and its count
+        unordered_map<int,int>mp;
+        int prefixSum = 0;
+        mp[0] = 1;
+        int ans = 0;
+        for(int i=0;i<n;i++){
+            prefixSum +=nums[i];
+            int rem = prefixSum%k;
+            //One issue could be how negative remainders are handled.
+            // In Python, the modulo operator with negative numbers behaves differently compared to C++.
+            // To address this, we can adjust the remainder calculation in the C++ code.
+            if(rem<0){
+                rem +=k;
+            }
+            if(mp.find(rem)!=mp.end() ){
+                ans += mp[rem];
+            }
+            
+            mp[rem]++;
+        }
+       
+        
+    return ans;
+    }
+};
