@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+string s;
+cin>>s;
+int n = s.size();
+unordered_map<char,int>mp;
+for(auto it:s){
+mp[it]++;
+}
+for(auto [k,v]:mp){
+if(v>1)
+cout<<k<<" : "<<v<<endl;
+}
+return 0;
+}
