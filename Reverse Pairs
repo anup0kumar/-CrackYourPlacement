@@ -1,0 +1,60 @@
+class Solution {
+public:
+    void merge(vector<int>&nums,int s,int mid ,int e){
+        vector<int>temp;
+        int left = s;
+        int right=mid+1;
+        
+        while(left<=mid && right<=e){
+            if(nums[left]<=nums[right]){
+                temp.push_back(nums[left++]);
+            }
+            else{
+                temp.push_back(nums[right++]);
+            }
+        }
+        while(left<=mid){
+            temp.push_back(nums[left++]);
+        }
+        while(right<=e){
+            temp.push_back(nums[right++]);
+        }
+        int j=0;
+        for(int i=s;i<=e;i++){
+            nums[i]=temp[j++];
+        }
+       
+    }
+    int countPairs(vector<int>&nums,int s,int mid,int e){
+        int right=mid+1;
+        int count = 0;
+        for(int i=s;i<=mid;i++){
+            long long int temp1 = nums[i];
+            long long int temp2 = nums[right];
+            while(right<=e &&( temp1 > 2* temp2)){
+                right++;
+                temp2 = nums[right];
+            }
+            count+=(right-(mid+1));
+        }
+        return count;
+    }
+    int mergeSort(vector<int>&nums,int s,int e){
+        int cnt=0;
+        if(s>=e)
+        return 0;
+
+        int mid = s+(e-s)/2;
+        cnt +=mergeSort(nums,s,mid);
+        cnt +=mergeSort(nums,mid+1,e);
+        cnt += countPairs(nums,s,mid,e);
+        merge(nums,s,mid,e);
+        return cnt;
+    }
+    int reversePairs(vector<int>& nums) {
+        int n = nums.size();
+        
+        return mergeSort(nums,0,n-1);
+    }
+
+};
