@@ -1,0 +1,51 @@
+class Stack:
+    def __init__(self) ->None:
+        self.items = []
+
+    def pop(self) ->Any:
+        return self.items.pop()
+
+    def push(self , x:Any) ->None:
+        self.items.append(x)
+
+    def is_empty(self) ->bool:
+        if len(self.items)==0:
+            return True
+        else:
+            return False
+    def peek(self):
+        return self.items[-1]
+
+class MyQueue:
+
+    def __init__(self) ->None:
+        self.stack1 = Stack()
+        self.stack2 = Stack()
+
+    def push(self, x: int) -> None:
+        while not self.stack1.is_empty():
+            item = self.stack1.pop()
+            self.stack2.push(item)
+        self.stack1.push(x)
+        while not self.stack2.is_empty():
+            item = self.stack2.pop()
+            self.stack1.push(item)
+
+    def pop(self) -> int:
+        return self.stack1.pop()
+
+    def peek(self) -> int:
+        item = self.stack1.pop()
+        self.stack1.push(item)
+        return item
+
+    def empty(self) -> bool:
+        return self.stack1.is_empty()
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
