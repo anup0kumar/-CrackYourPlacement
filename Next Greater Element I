@@ -1,0 +1,52 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        //brute force 
+        // int n1= nums1.size();
+        // int n2 = nums2.size();
+        // stack<int>s1;
+        // vector<int>v;
+        // for(int i=0;i<n1;i++){
+        //      int ans = -1;
+        //     for(int j=0;j<n2;j++){
+        //         if(nums1[i]==nums2[j]){
+                   
+        //             for(int k=j;k<n2;k++){
+        //                 if(nums2[k]>nums2[j]){
+        //                     ans = nums2[k];
+        //                     break;
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     v.push_back(ans);
+        // }
+        // return v;
+
+        //optimal approach
+        stack<int> s;
+        unordered_map<int, int> mp;
+        int n = nums2.size();
+        
+        // Iterate over nums2 from the end to the beginning
+        for (int i = n - 1; i >= 0; --i) {
+            int current = nums2[i];
+            // Maintain the stack to only keep elements greater than the current element
+            while (!s.empty() && s.top() <= current) {
+                s.pop();
+            }
+            // If stack is empty, there is no greater element to the right
+            mp[current] = s.empty() ? -1 : s.top();
+            // Push the current element onto the stack
+            s.push(current);
+        }
+
+        vector<int> ans;
+        // Populate the answer array based on the map we built
+        for (int num : nums1) {
+            ans.push_back(mp[num]);
+        }
+
+        return ans;
+    }
+};
