@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        for(auto it:nums)
+        mp[it]++;
+
+        vector<pair<int,int>>v;
+        for(auto [ele,freq] : mp)
+            v.push_back({freq,ele});
+        
+        sort(v.begin(),v.end());
+        reverse(v.begin(),v.end());
+
+        // To sort the vector in decreasing order
+        // sort(v.begin(), v.end(), greater<int>());
+
+        vector<int>ans;
+        for(int i=0;i<k;i++)
+            ans.push_back(v[i].second);
+        
+        return ans;
+    }
+};
