@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int calculate(string s) {
+       //Adding '+' at both ends ensures that the first and last numbers are treated uniformly.
+       // This helps in always having a number followed by an operator, simplifying the logic.
+       istringstream in('+' + s + '+');
+       using ll = long long;
+       ll total = 0;
+       ll term = 0;
+       ll n ;
+       char op;
+       while(in>>op){
+        if(op=='+' || op=='-'){
+            total +=term;
+            in>>term;
+            //44-1 i.e 43 is for + sign 
+            //44+1 i.e 45 is for - sign
+            //if op==+ then 44-43 ie. 1
+            //if op==- then 44-45 i.e -1
+            term *= 44-op;
+        }
+        else{
+            in>>n;
+            if(op=='*')
+            term *=n;
+            else
+            term /=n;
+        }
+       }
+       return total;
+    }
+};
