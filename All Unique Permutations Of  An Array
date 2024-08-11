@@ -1,0 +1,68 @@
+//{ Driver Code Starts
+//Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function Template for C++
+
+class Solution {
+  public:
+  void solve(vector<int>&arr, int n , vector<int>&ds, vector<vector<int>>&ans, vector<int>&vis){
+      if(ds.size()==n){
+          ans.push_back(ds);
+          return;
+      }
+      for(int ind=0;ind<n;ind++){
+          if(vis[ind] || (ind>0 && (arr[ind] ==arr[ind-1]) && !vis[ind-1])){
+              continue; //skip the duplicate
+          }
+              vis[ind]=1;
+              ds.push_back(arr[ind]);
+              solve(arr,n,ds,ans,vis);
+              ds.pop_back();
+              vis[ind]=0;
+      }
+  }
+    vector<vector<int>> uniquePerms(vector<int> &arr ,int n) {
+        // code here
+        vector<vector<int>>ans;
+        vector<int>ds;
+        vector<int>vis(n,0);
+        sort(arr.begin(),arr.end());
+        
+        solve(arr,n,ds,ans,vis);
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        
+        cin>>n;
+        vector<int> arr(n);
+        
+        for(int i=0 ; i<n ; i++)
+            cin>>arr[i];
+
+        Solution ob;
+        vector<vector<int>> res = ob.uniquePerms(arr,n);
+        for(int i=0; i<res.size(); i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                cout<<res[i][j]<<" ";
+            }
+            cout<<"\n";
+        }
+    }
+    return 0;
+}
+// } Driver Code Ends
