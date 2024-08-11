@@ -1,0 +1,73 @@
+class Solution {
+public:
+//Brute Force Approach
+    // bool checkValid(string &s){
+    //     int n = s.size();
+    //     stack<char>st;
+    //     for(int i=0;i<n;i++){
+    //         if(s[i]=='('){
+    //             st.push('(');
+    //         }
+    //         else{
+    //             if(st.empty())
+    //             return false;
+    //             else
+    //             st.pop();
+    //         }
+    //     }
+    //     return true;
+    // }
+    // void solve(vector<char>&ch, int N, vector<string>&ans, string &s,vector<int>&vis){
+    //     if(s.size()==N){
+    //         if(checkValid(s))
+    //         ans.push_back(s);
+    //         return ;
+    //     }
+    //     for(int i=0;i<N;i++){
+    //         if(vis[i] || (i>0 && ch[i]==ch[i-1] && !vis[i-1])){
+    //             continue;
+    //         }
+    //             s += ch[i];
+    //             vis[i] = 1;
+    //             solve(ch,N,ans,s,vis);
+    //             s.pop_back();
+    //             vis[i] = 0;
+    //     }
+    // }
+    // vector<string> generateParenthesis(int n) {
+    //     vector<string>ans;
+    //     string s="";
+    //     vector<char>ch;
+    //     for(int i=0;i<n;i++){
+    //         ch.push_back('(');
+    //     }
+    //      for(int i=0;i<n;i++){
+    //         ch.push_back(')');
+    //     }
+    //     int N = ch.size();
+    //     vector<int>vis(N,0);
+    //     solve(ch,N,ans,s,vis);
+    //     return ans;
+
+    //Optimized Approach
+    void dfs(vector<string>&ans, string currStr, int n , int left_count, int right_count){
+        if(currStr.size()==2*n){
+            ans.push_back(currStr);
+            return;
+        }
+        if(left_count>right_count){
+            dfs(ans,currStr+")",n,left_count,right_count+1);
+        }
+        if(left_count<n){
+            dfs(ans,currStr+"(",n,left_count+1,right_count);
+        }
+    }
+
+
+    vector<string> generateParenthesis(int n) {
+        vector<string>ans;
+        string currStr="";
+        dfs(ans,currStr,n,0,0);
+        return ans;
+    }
+};
